@@ -34,6 +34,8 @@ namespace AppKeyChanger
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            txtProcessName.Text = Properties.Settings.Default.ProcessName;
+            txtWindowText.Text = Properties.Settings.Default.WindowText;
             string appFile = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string appPath = System.IO.Directory.GetParent(appFile).FullName;
             keyChangeTable_ = new KeyChangeTable(appPath + "\\keychange.tbl");
@@ -54,6 +56,9 @@ namespace AppKeyChanger
                 regexWindowText_ = regexWindowText;
                 appliedProcessName_ = txtProcessName.Text;
                 appliedWindowText_ = txtWindowText.Text;
+                Properties.Settings.Default.ProcessName = appliedProcessName_;
+                Properties.Settings.Default.WindowText = appliedWindowText_;
+                Properties.Settings.Default.Save();
             }
             catch (Exception e)
             {
